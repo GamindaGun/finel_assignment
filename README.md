@@ -13,3 +13,4 @@ Chatterbot
 Flask
 Requests
 SQLite
+WeatherBot.py used to get and recod data in to the weather.db
