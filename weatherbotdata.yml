@@ -1,0 +1,22 @@
+categories:
+- weather
+- weather in UK
+conversations:
+- - Hi
+  - Hi there
+- - How are you today?
+  - I am fine
+- - How are you?
+  - I do not have feelings! how can I help you today?
+- - Can I know weather in UK?
+  - Certainly.
+- - Best Weather cities next 5 dayes.
+  - In next 5 days Corfe Castle, Bristol, Stonehenge, Watergate Bay having 12C to 13C.
+- - Worst weather citity in next week.
+  - Lake District National Park is the worst with temperature dropping up to -1.23C.
+- - What are the cities with clear weather.
+  - Corfe Castle, Oxford, The Cotswolds, Cambridge, Bristol, Watergate, Birmingham having clear sky morst of the with temperature varing from 10C to 6C.
+- - What are cities with rainy weather?.
+  - In Corfe Castle, Oxford, The Cotswolds, Cambridge, Bristol, Watergate, Birmingham, Stonehenge, Norwich, Lake District National Park expecting light or modarate rain some parts of the day.
+
+

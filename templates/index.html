@@ -1,0 +1,139 @@
+{% extends 'layout.html'%}
+{% block content %}
+
+<!-- Form to select a city -->
+<div id="display-div">
+    <div>
+            <form class="d-flex" action="" method="post" name="post">
+                        <table id="select-tbl">
+                            <tr>
+                                <td id="select-title-td">Select city Name from the list</td>
+                                <br>
+                                <td id="select-field-td">{{form.city_name(class="form-control me-2 cursor-pointer")}}</td>
+
+                                <td>{{form.submit(class="btn btn-primary")}}</td>
+                            </tr>
+
+                        </table>
+            </form>
+    </div>
+
+<!-- Display current weather data -->
+    <div class="container">
+            {% if current_weather_data %}
+            <h2>Current Weather Data</h2>
+            <div id="image-container">
+
+                 <!-- Display weather icon -->
+                <img src="https://openweathermap.org/img/wn/{{current_weather_data.icon}}@4x.png" alt="">
+
+                <!-- Display current temperature -->
+                <p>{{ current_weather_data.temperature }}°C</p>
+
+                <!-- Display weather description -->
+                <div id="description">
+                    <p>{{current_weather_data .main }}</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                      <!-- Display humidity -->
+                    <p>Humidity: {{ current_weather_data.humidity }}%</p>
+                </div>
+                <div>
+                    <!-- Display max temperature -->
+                    <p>Max Temperature: {{ current_weather_data.temp_max }}°C</p>
+                </div>
+                    <!-- Display min temperature -->
+                    <p>Min Temperature: {{ current_weather_data.temp_min }}°C</p>
+                </div>
+                <div>
+                     <!-- Display wind speed -->
+                    <p>Wind Speed: {{ current_weather_data.wind_speed }} m/s</p>
+                </div>
+
+            </div>
+
+            {% endif %}
+    </div>
+
+<!-- Display weather forecast -->
+<div>
+<h1 id="f-h1">Weather Forecast</h1>
+
+    <div class="weather-container" id="grid-div">
+
+        <!-- Loop through forecast data -->
+        {% if forecast_weather_data %}
+            {% for data in forecast_weather_data  %}
+            <div class="col4">
+
+                <!-- Display forecast date -->
+                <p class="date">{{ data.date_time }}</p>
+                <div>
+                    <!-- Display forecast weather icon -->
+                    <img src="https://openweathermap.org/img/wn/{{data.icon}}@2x.png" alt="">
+                </div>
+                <!-- Display forecast temperature -->
+                <p style="font-size: large">{{ data.temperature }}°C </p>
+
+                 <!-- Display forecast description -->
+                <p>{{ data.description }}</p>
+                <!-- Display forecast humidity -->
+                <p>Humidity (%): {{ data.humidity }}</p>
+                <!-- Display forecast max temperature -->
+                <p>Maix: {{ data.temp_max }} °C</p>
+                <!-- Display forecast min temperature -->
+                <p>Min: {{ data.temp_min }}  °C</p>
+            </div>
+            {% endfor %}
+        {% else %}
+        <!-- Display message if no forecast data available -->
+            <p>No forecast data available.</p>
+        {% endif %}
+    </div>
+</div>
+<!-- Chatbot interface -->
+ <div class="box"></div>
+    <h1 style="color: #06b6ef" >Your AI Bot</h1>
+    <div class="boxed">
+      <div>
+        <div id="chatbox">
+            <!-- Display initial bot message -->
+          <p class="botText">
+            <span>Hi! I'm ChatBot</span>
+          </p>
+        </div>
+        <div id="userInput">
+             <!-- User input for chat -->
+          <input id="textInput" type="text" name="msg" placeholder="Enter message here..." />
+        </div>
+      </div>
+    </div>
+ <!-- JavaScript for handling chatbot interaction -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Function to handle bot responses
+        function getBotResponse() {
+            // Get user input
+          var rawText = $("#textInput").val();
+          var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document.getElementById("userInput").scrollIntoView({ block: "start", behavior: "smooth" });
+
+          // Send user input to get bot response
+          $.get("/getBotResponse", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+            $("#chatbox").append(botHtml);
+            document.getElementById("userInput").scrollIntoView({ block: "start", behavior: "smooth" });
+          });
+        }
+        // Event listener for user input
+        $("#textInput").keypress(function(e) {
+          if (e.which == 13) {
+            getBotResponse();
+          }
+        });
+</script>
+{% endblock content %}
